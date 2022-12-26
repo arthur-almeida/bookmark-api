@@ -21,7 +21,8 @@ export class AuthService {
       email,
       hash,
     });
-    return this.userRepository.save(user);
+    await this.userRepository.save(user);
+    return this.signToken({ email, userId: user.id });
   }
 
   public async signin({ email, password }: AuthDto) {
