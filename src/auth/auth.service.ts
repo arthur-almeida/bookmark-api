@@ -1,11 +1,11 @@
-import * as argon from 'argon2';
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as argon from 'argon2';
 import { Repository } from 'typeorm';
 
-import { User } from 'src/user/entities/user.entity';
 import { AuthDto } from './dtos';
-import { InjectRepository } from '@nestjs/typeorm';
-import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
