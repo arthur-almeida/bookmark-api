@@ -6,12 +6,14 @@ import { Repository } from 'typeorm';
 
 import { AuthDto } from './dtos';
 import { User } from '../user/entities/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private readonly config: ConfigService,
   ) {}
 
   public async signup({ email, password }: AuthDto) {
@@ -46,7 +48,7 @@ export class AuthService {
     };
     const token = await this.jwtService.signAsync(payload, {
       expiresIn: '15m',
-      secret: 'secret',
+      secret: this.config.get('JWT_SECRET'),
     });
     return {
       access_token: token,
