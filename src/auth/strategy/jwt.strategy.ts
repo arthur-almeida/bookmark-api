@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
+
+import { User } from '../../user/entities/user.entity';
 
 type Payload = {
   sub: number;

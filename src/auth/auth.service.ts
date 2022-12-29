@@ -5,7 +5,7 @@ import * as argon from 'argon2';
 import { Repository } from 'typeorm';
 
 import { AuthDto } from './dtos';
-import { User } from 'src/user/entities/user.entity';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
