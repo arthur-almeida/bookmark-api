@@ -18,11 +18,18 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --no-cache --watch --config ./test/jest-e2e.json",
+    "pretest:e2e": "npm run db:test:restart",
+    "test:e2e": "dotenv -e .env.test -- jest --no-cache --watch --config ./test/jest-e2e.json",
+    
     "db:dev:rm": "docker compose rm dev-db -s -f -v",
     "db:dev:up": "docker compose up dev-db -d",
-    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up",
-    "db:dev:migrate": "npx typeorm-ts-node-esm migration:run -d ./ormconfig.ts"
+    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 5 && npm run db:dev:migrate",
+    "db:dev:migrate": "dotenv -e .env -- npx typeorm-ts-node-esm migration:run -d ./ormconfig.ts",
+
+    "db:test:rm": "docker compose rm test-db -s -f -v",
+    "db:test:up": "docker compose up test-db -d",
+    "db:test:restart": "npm run db:test:rm && npm run db:test:up && sleep 5 && npm run db:test:migrate",
+    "db:test:migrate": "dotenv -e .env.test -- npx typeorm-ts-node-esm migration:run -d ./ormconfig.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
