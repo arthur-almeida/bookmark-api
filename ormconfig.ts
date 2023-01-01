@@ -8,6 +8,7 @@ const options: DataSourceOptions = {
   password: '123456',
   database: 'postgres',
   entities: ['src/migrations/*.ts'],
+  migrations: ['src/migrations/*.ts'],
 };
 
 const dataSource = new DataSource(options);
