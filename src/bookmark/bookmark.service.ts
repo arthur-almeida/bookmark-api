@@ -64,4 +64,21 @@ export class BookmarkService {
       updateBookmarkDto,
     );
   }
+
+  public async deleteBookmark(userId: number, bookmarkId: number) {
+    const bookmark = await this.bookmarkRepository.findOne({
+      where: {
+        id: bookmarkId,
+      },
+      relations: {
+        user: true,
+      },
+    });
+    if (!bookmark || bookmark.user.id !== userId) {
+      throw new ForbiddenException('Access to resource denied');
+    }
+    await this.bookmarkRepository.delete({
+      id: bookmarkId,
+    });
+  }
 }
